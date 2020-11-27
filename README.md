@@ -1,6 +1,6 @@
 # Traveling Salesman Problem-11 cities
 
-# Dynamic Programing
+# Dynamic Programming
 
 # Package
 
