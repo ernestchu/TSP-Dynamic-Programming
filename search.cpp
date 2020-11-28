@@ -20,7 +20,8 @@ int main(int argc, const char *argv[]){
     if (algo=="dp")
         final_node = dp::dp_search(cities, false);
 
-    std::cout << final_node.dist << std::endl;
+    std::cout << "Shortest distance: " << final_node.dist << std::endl;
+    std::cout << "Path:\n";
     dp::trace_path(final_node, std::cout, cities);
 
     return 0;
