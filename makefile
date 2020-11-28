@@ -9,10 +9,13 @@ OBJS = $(addprefix $(OBJDIR), $(OBJ))
 
 all: clean dep link
 
-dep: $(OBJS)
+dep: $(OBJDIR) $(OBJS)
 
 link: $(EXECOBJ)
 	$(CPP) $(F) $(EXECOBJ) $(OBJS) -o $(EXEC)
+
+$(OBJDIR):
+	mkdir obj
 
 $(EXECOBJ): $(EXEC).cpp
 	$(CPP) $(F) -c $< -o $@
@@ -21,4 +24,4 @@ $(OBJDIR)%.o: %.cpp
 	$(CPP) $(F) -c $< -o $@
 
 clean:
-	rm -rf ./obj/* $(EXEC)
+	rm -rf obj $(EXEC)
