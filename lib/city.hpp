@@ -5,9 +5,8 @@ struct City {
     const int name;
     const int x;
     const int y;
-    City* next;
     City();
-    City(int n, int x, int y) : name(n), x(x), y(y), next(nullptr) {}
+    City(int n, int x, int y) : name(n), x(x), y(y) {}
     friend std::ostream& operator<<(std::ostream& o, const City& x);
 };
 #endif

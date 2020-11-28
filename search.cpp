@@ -1,10 +1,3 @@
-//
-//  search.cpp
-//
-//  Created by WU,MENG-TING on 2020/10/6.
-//  Copyright © 2020 WU,MENG-TING. All rights reserved.
-//
-
 #include <iostream>
 #include <cstdlib>
 #include <string>
@@ -23,15 +16,15 @@ int main(int argc, const char *argv[]){
     arg_handler(argc, argv, algo, file);
     read_file(file, cities);
 
-    double shortest=-1;
+    Pair final_node;
     if (algo=="dp")
-        shortest = dp::dp_search(cities, false);
+        final_node = dp::dp_search(cities, false);
 
-    std::cout << shortest << std::endl;
+    std::cout << final_node.dist << std::endl;
+    dp::trace_path(final_node, std::cout, cities);
+
     return 0;
 }
-
-
 
 void arg_handler(int argc, const char *argv[], std::string& algo, std::string& file) {
     if (argc != 3) {
@@ -45,6 +38,7 @@ void read_file(const std::string& file, std::vector<City>& cities) {
     std::ifstream fin(file);
     int name,x,y;
     while(fin >> name){
+        name--; // annotation modify(start from 0 to start from 1)
         fin >> x >> y;
         City city(name, x, y);
         cities.push_back(city);

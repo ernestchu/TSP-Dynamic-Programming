@@ -1,32 +1,40 @@
 #include "dp.hpp"
-static std::vector<std::vector<double> > dist_table;
-double dp::dp_search(std::vector<City>& cities, const bool& plot) {
-    int start = 0;
+std::vector<std::vector<Pair> > dp::dist_table;
+Pair dp::dp_search(const std::vector<City>& cities, const bool& plot) {
     int n = cities.size();
-    dist_table = std::vector<std::vector<double> >(1 << n, std::vector<double>(n, -1));
+    dist_table = std::vector<std::vector<Pair> >(1 << n, std::vector<Pair>(n, Pair(-1, -1)));
     for (int i = 0; i < n; i++) // dist from start to other cities with start not annotated, so the salesman can go back to start in the end
-        dist_table[1<<i][i] = euclidean_distance(cities[start], cities[i]);
-    return tsp((1 << n)-1, start, cities, plot);
+        dist_table[1<<i][i] = Pair(START, euclidean_distance(cities[START], cities[i]));
+    return tsp((1 << n)-1, START, cities, plot);
 }
-double dp::tsp(int visited, int current, std::vector<City>& cities, const bool& plot) {
+void dp::trace_path(Pair p, std::ostream& o, const std::vector<City>& cities) {
+    int visited = (1 << cities.size())-1;
+    int current = START;
+    o << cities[current] << std::endl;
+    do {
+        o << cities[p.prev] << std::endl;
+        visited -= (1 << current);
+        current = p.prev;
+        p = dist_table[visited][p.prev];
+    } while(p.prev != -1);
+}
+Pair dp::tsp(int visited, int current, const std::vector<City>& cities, const bool& plot) {
     if (plot)
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
-    if (dist_table[visited][current] != -1)
+    if (dist_table[visited][current].dist != -1)
         return dist_table[visited][current];
 
     int current_bit = 1 << current;
-    dist_table[visited][current] = 1e6; // Infinity
+    dist_table[visited][current].dist = 1e6; // Infinity
     for (int i = 0; i < cities.size(); i++) {
         if (i != current && ((1<<i)&visited)) { // if i isn't current and ith city is visted
-            double other_path = tsp(visited-current_bit, i, cities, plot)+euclidean_distance(cities[i], cities[current]);
-            if (other_path < dist_table[visited][current]) {
-                std::cout << i << " to " << current << std::endl;
-                dist_table[visited][current] = other_path;
-            }
+            float dist = tsp(visited-current_bit, i, cities, plot).dist+euclidean_distance(cities[i], cities[current]);
+            if (dist < dist_table[visited][current].dist)
+                dist_table[visited][current] = Pair(i, dist);
         }
     }
     return dist_table[visited][current];
 }
-double dp::euclidean_distance(const City& a, const City& b) {
+float dp::euclidean_distance(const City& a, const City& b) {
     return sqrt(pow((a.x-b.x), 2)+pow((a.y-b.y), 2));
 }
