@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include "city.hpp"
 
-const int START = 2-1; //annotation adjustment
+const int START = 1-1; //annotation adjustment
 /*====================================================================================================
 #   TSP dynamic programing
 #   dist_table[2^N][N] => [visted cities in bit representation][current city]
