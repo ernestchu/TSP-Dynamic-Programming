@@ -21,6 +21,10 @@ Run directly in the terminal by typing the following:
 #./search [algo] [filenane]
 ./search dp readfile.txt
 ```
+Plot the result:
+```
+make plot
+```
 <!-- Plot the result:
 
         make plot
