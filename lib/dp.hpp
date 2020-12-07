@@ -5,7 +5,7 @@
 #include <thread> //for sleep
 #include "city.hpp"
 
-const int START = 0;
+const int START = 2-1; //annotation adjustment
 /*====================================================================================================
 #   TSP dynamic programing
 #   dist_table[2^N][N] => [visted cities in bit representation][current city]
