@@ -18,7 +18,7 @@ int main(int argc, const char *argv[]){
 
     Pair final_node;
     if (algo=="dp")
-        final_node = dp::dp_search(cities, false);
+        final_node = dp::dp_search(cities, PLOT);
 
     std::cout << "Shortest distance: " << final_node.dist << std::endl;
     std::cout << "Path:\n";

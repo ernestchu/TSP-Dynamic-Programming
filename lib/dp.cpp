@@ -20,7 +20,7 @@ void dp::trace_path(Pair p, std::ostream& o, const std::vector<City>& cities) {
 }
 Pair dp::tsp(int visited, int current, const std::vector<City>& cities, const bool& plot) {
     if (plot)
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        std::this_thread::sleep_for(std::chrono::microseconds(100));
     if (dist_table[visited][current].dist != -1)
         return dist_table[visited][current];
 

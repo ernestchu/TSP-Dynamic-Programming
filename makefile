@@ -1,5 +1,6 @@
 CPP = g++
 F = -Wall -std=c++17
+F_PLOT = -DPLOT=0 # plot or not
 VPATH = ./lib/ #search directory
 EXEC = search
 OBJ = city.o dp.o
@@ -18,7 +19,7 @@ $(OBJDIR):
 	mkdir obj
 
 $(EXECOBJ): $(EXEC).cpp
-	$(CPP) $(F) -c $< -o $@
+	$(CPP) $(F_PLOT) $(F) -c $< -o $@
 
 $(OBJDIR)%.o: %.cpp
 	$(CPP) $(F) -c $< -o $@
