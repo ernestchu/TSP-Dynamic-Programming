@@ -18,7 +18,7 @@ void dp::trace_path(Pair p, std::ostream& o, const std::vector<City>& cities) {
         current = p.prev;
         p = dist_table[visited][p.prev];
     } while(p.prev != -1);
-    o << "\n==========\n";
+    o << "==========\n\n";
 }
 Pair dp::tsp(int visited, int current, const std::vector<City>& cities, const bool& plot) {
     if (plot)
