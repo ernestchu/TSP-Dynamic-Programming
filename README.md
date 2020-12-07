@@ -18,7 +18,7 @@ make plot
 ```
 For live plotting:
 ```
-make plot animation
+make plot_animation
 ```
 Press 'q' to quit gnuplot
 
