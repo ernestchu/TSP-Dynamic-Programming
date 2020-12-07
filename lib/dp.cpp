@@ -8,6 +8,7 @@ Pair dp::dp_search(const std::vector<City>& cities, const bool& plot) {
     return tsp((1 << n)-1, START, cities, plot);
 }
 void dp::trace_path(Pair p, std::ostream& o, const std::vector<City>& cities) {
+    o << "\n==========\n";
     int visited = (1 << cities.size())-1;
     int current = START;
     o << cities[current] << std::endl;
@@ -17,6 +18,7 @@ void dp::trace_path(Pair p, std::ostream& o, const std::vector<City>& cities) {
         current = p.prev;
         p = dist_table[visited][p.prev];
     } while(p.prev != -1);
+    o << "\n==========\n";
 }
 Pair dp::tsp(int visited, int current, const std::vector<City>& cities, const bool& plot) {
     if (plot)
