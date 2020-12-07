@@ -4,6 +4,7 @@
 #include <cmath>
 #include <thread> //for sleep
 #include <cstdlib>
+#include <fstream>
 #include "city.hpp"
 
 const int START = 1-1; //annotation adjustment

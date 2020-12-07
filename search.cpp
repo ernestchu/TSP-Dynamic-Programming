@@ -13,7 +13,6 @@ int main(int argc, const char *argv[]){
     srand(1);
     std::string algo, file;
     std::vector<City> cities;
-    std::ofstream fout("output.txt");
 
     arg_handler(argc, argv, algo, file);
     read_file(file, cities);
@@ -26,7 +25,9 @@ int main(int argc, const char *argv[]){
     std::cout << "\n==========\n";
     dp::trace_path(final_node, std::cout, cities);
     std::cout << "==========\n";
+    std::ofstream fout("output.txt");
     dp::trace_path(final_node, fout, cities);
+    fout.close();
     return 0;
 }
 

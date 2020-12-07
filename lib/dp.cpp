@@ -33,6 +33,20 @@ Pair dp::tsp(int visited, int current, const std::vector<City>& cities, const bo
                 dist_table[visited][current] = Pair(i, dist);
         }
     }
+    if (plot) {
+        // count the number of visted cities
+        int count = 0, n = visited;
+        while (n) {
+            count += n & 1;
+            n >>= 1;
+        }
+        if (count > cities.size()-3) { // threshold of minimum number of cities visited
+            std::this_thread::sleep_for(std::chrono::milliseconds(100)); // delay
+            std::ofstream fout("output.txt");
+            trace_path(dist_table[visited][current], fout, cities);
+            fout.close();
+        }
+    }
     return dist_table[visited][current];
 }
 float dp::euclidean_distance(const City& a, const City& b) {
