@@ -35,4 +35,5 @@ Press 'q' to quit gnuplot -->
 
 <!-- Best path: 1, 3, 2, 11, 9, 10, 5, 4, 6, 7, 8, 1\ -->
 Score: 167.807
+
 <img src=img/tsp11-dp.png width="500" height="400">
