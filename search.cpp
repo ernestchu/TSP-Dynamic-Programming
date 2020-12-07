@@ -13,7 +13,7 @@ int main(int argc, const char *argv[]){
     srand(1);
     std::string algo, file;
     std::vector<City> cities;
-    std::ofstream fout("result.txt");
+    std::ofstream fout("output.txt");
 
     arg_handler(argc, argv, algo, file);
     read_file(file, cities);
