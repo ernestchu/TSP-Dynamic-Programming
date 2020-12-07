@@ -9,14 +9,15 @@
 # Usage
 
 Open terminal
-
-        make
-
+```
+make
+make PLOT=1
+```
 Run directly in the terminal by typing the following:
-
-        #./search [algo] [filenane]
-        ./search dp readfile.txt
-
+```
+#./search [algo] [filenane]
+./search dp readfile.txt
+```
 <!-- Plot the result:
 
         make plot
