@@ -23,6 +23,7 @@ $(EXECOBJ): $(EXEC).cpp
 
 $(OBJDIR)%.o: %.cpp
 	$(CPP) $(F) -c $< -o $@
-
+plot:
+	gnuplot tsp11.p
 clean:
 	rm -rf obj $(EXEC)
