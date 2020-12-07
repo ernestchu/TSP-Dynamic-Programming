@@ -8,7 +8,7 @@ Pair dp::dp_search(const std::vector<City>& cities, const bool& plot) {
     return tsp((1 << n)-1, START, cities, plot);
 }
 void dp::trace_path(Pair p, std::ostream& o, const std::vector<City>& cities) {
-    o << "\n==========\n";
+    //o << "\n==========\n";
     int visited = (1 << cities.size())-1;
     int current = START;
     o << cities[current] << std::endl;
@@ -18,7 +18,7 @@ void dp::trace_path(Pair p, std::ostream& o, const std::vector<City>& cities) {
         current = p.prev;
         p = dist_table[visited][p.prev];
     } while(p.prev != -1);
-    o << "==========\n\n";
+    //o << "==========\n\n";
 }
 Pair dp::tsp(int visited, int current, const std::vector<City>& cities, const bool& plot) {
     if (dist_table[visited][current].dist != -1)
@@ -27,15 +27,11 @@ Pair dp::tsp(int visited, int current, const std::vector<City>& cities, const bo
     int current_bit = 1 << current;
     dist_table[visited][current].dist = 1e6; // Infinity
     for (int i = 0; i < cities.size(); i++) {
-        if (i != current && ((1<<i)&visited)) { // if i isn't current and ith city is visted
+        if (i != current && ((1<<i)&visited)) { // if i isn't current and ith city is visited
             float dist = tsp(visited-current_bit, i, cities, plot).dist+euclidean_distance(cities[i], cities[current]);
             if (dist < dist_table[visited][current].dist)
                 dist_table[visited][current] = Pair(i, dist);
         }
-    }
-    if (plot && rand()%100 == 0) { // execute this with probability of 1%
-        std::this_thread::sleep_for(std::chrono::microseconds(100000));
-        trace_path(dist_table[visited][current], std::cout, cities);
     }
     return dist_table[visited][current];
 }
