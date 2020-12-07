@@ -13,6 +13,7 @@ int main(int argc, const char *argv[]){
     srand(1);
     std::string algo, file;
     std::vector<City> cities;
+    std::ofstream fout("result.txt");
 
     arg_handler(argc, argv, algo, file);
     read_file(file, cities);
@@ -22,8 +23,10 @@ int main(int argc, const char *argv[]){
         final_node = dp::dp_search(cities, PLOT);
 
     std::cout << "Shortest distance: " << final_node.dist << std::endl;
+    std::cout << "\n==========\n";
     dp::trace_path(final_node, std::cout, cities);
-
+    std::cout << "==========\n";
+    dp::trace_path(final_node, fout, cities);
     return 0;
 }
 
