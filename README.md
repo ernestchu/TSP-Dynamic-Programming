@@ -11,6 +11,9 @@
 Open terminal
 ```
 make
+```
+If you want to enable plotting
+```
 make PLOT=1
 ```
 Run directly in the terminal by typing the following:
