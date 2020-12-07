@@ -21,8 +21,6 @@ void dp::trace_path(Pair p, std::ostream& o, const std::vector<City>& cities) {
     o << "==========\n\n";
 }
 Pair dp::tsp(int visited, int current, const std::vector<City>& cities, const bool& plot) {
-    if (plot)
-        std::this_thread::sleep_for(std::chrono::microseconds(100));
     if (dist_table[visited][current].dist != -1)
         return dist_table[visited][current];
 
@@ -34,6 +32,10 @@ Pair dp::tsp(int visited, int current, const std::vector<City>& cities, const bo
             if (dist < dist_table[visited][current].dist)
                 dist_table[visited][current] = Pair(i, dist);
         }
+    }
+    if (plot && rand()%100 == 0) { // execute this with probability of 1%
+        std::this_thread::sleep_for(std::chrono::microseconds(100000));
+        trace_path(dist_table[visited][current], std::cout, cities);
     }
     return dist_table[visited][current];
 }

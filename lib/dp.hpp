@@ -3,6 +3,7 @@
 #include <vector>
 #include <cmath>
 #include <thread> //for sleep
+#include <cstdlib>
 #include "city.hpp"
 
 const int START = 2-1; //annotation adjustment

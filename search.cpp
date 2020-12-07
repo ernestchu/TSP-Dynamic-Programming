@@ -10,6 +10,7 @@ void arg_handler(int argc, const char *argv[], std::string& algo, std::string& f
 void read_file(const std::string& file, std::vector<City>& cities);
 
 int main(int argc, const char *argv[]){
+    srand(1);
     std::string algo, file;
     std::vector<City> cities;
 
