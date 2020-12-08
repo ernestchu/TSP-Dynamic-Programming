@@ -29,7 +29,7 @@ struct Pair { //previous city + distance
 class dp {
 public:
     static Pair dp_search(const std::vector<City>& cities, const bool& plot);
-    static void trace_path(Pair p, std::ostream& o, const std::vector<City>& cities);
+    static void trace_path(Pair p, int visited, int current, std::ostream& o, const std::vector<City>& cities);
 private:
     static Pair tsp(int visited, int current, const std::vector<City>& cities, const bool& plot);
     static float euclidean_distance(const City& a, const City& b);

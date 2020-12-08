@@ -7,10 +7,7 @@ Pair dp::dp_search(const std::vector<City>& cities, const bool& plot) {
         dist_table[1<<i][i] = Pair(START, euclidean_distance(cities[START], cities[i]));
     return tsp((1 << n)-1, START, cities, plot);
 }
-void dp::trace_path(Pair p, std::ostream& o, const std::vector<City>& cities) {
-    //o << "\n==========\n";
-    int visited = (1 << cities.size())-1;
-    int current = START;
+void dp::trace_path(Pair p, int visited, int current, std::ostream& o, const std::vector<City>& cities) {
     o << cities[current] << std::endl;
     do {
         o << cities[p.prev] << std::endl;
@@ -18,7 +15,8 @@ void dp::trace_path(Pair p, std::ostream& o, const std::vector<City>& cities) {
         current = p.prev;
         p = dist_table[visited][p.prev];
     } while(p.prev != -1);
-    //o << "==========\n\n";
+
+
 }
 Pair dp::tsp(int visited, int current, const std::vector<City>& cities, const bool& plot) {
     if (dist_table[visited][current].dist != -1)
@@ -40,10 +38,10 @@ Pair dp::tsp(int visited, int current, const std::vector<City>& cities, const bo
             count += n & 1;
             n >>= 1;
         }
-        if (count > cities.size()-3) { // threshold of minimum number of cities visited
-            std::this_thread::sleep_for(std::chrono::milliseconds(100)); // delay
+        if (count > cities.size()-5) { // threshold of minimum number of cities visited
+            std::this_thread::sleep_for(std::chrono::milliseconds(10)); // delay
             std::ofstream fout("output.txt");
-            trace_path(dist_table[visited][current], fout, cities);
+            trace_path(dist_table[visited][current], visited, current, fout, cities);
             fout.close();
         }
     }

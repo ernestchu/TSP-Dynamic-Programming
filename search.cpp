@@ -23,10 +23,10 @@ int main(int argc, const char *argv[]){
 
     std::cout << "Shortest distance: " << final_node.dist << std::endl;
     std::cout << "\n==========\n";
-    dp::trace_path(final_node, std::cout, cities);
+    dp::trace_path(final_node, (1 << cities.size())-1, START, std::cout, cities);
     std::cout << "==========\n";
     std::ofstream fout("output.txt");
-    dp::trace_path(final_node, fout, cities);
+    dp::trace_path(final_node, (1 << cities.size())-1, START, fout, cities);
     fout.close();
     return 0;
 }
