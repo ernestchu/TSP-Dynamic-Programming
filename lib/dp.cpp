@@ -8,6 +8,11 @@ Pair dp::dp_search(const std::vector<City>& cities, const bool& plot) {
     return tsp((1 << n)-1, START, cities, plot);
 }
 void dp::trace_path(Pair p, int visited, int current, std::ostream& o, const std::vector<City>& cities) {
+    // print the cities not visited with double end lines(so gnuplot will not draw lines in between)
+    for (int i = 1, j = 0; j < cities.size(); i<<=1, j++) {
+        if (i & ~visited)
+            o << cities[j] << std::endl << std::endl;
+    }
     o << cities[current] << std::endl;
     do {
         o << cities[p.prev] << std::endl;
@@ -15,8 +20,6 @@ void dp::trace_path(Pair p, int visited, int current, std::ostream& o, const std
         current = p.prev;
         p = dist_table[visited][p.prev];
     } while(p.prev != -1);
-
-
 }
 Pair dp::tsp(int visited, int current, const std::vector<City>& cities, const bool& plot) {
     if (dist_table[visited][current].dist != -1)
@@ -33,13 +36,14 @@ Pair dp::tsp(int visited, int current, const std::vector<City>& cities, const bo
     }
     if (plot) {
         // count the number of visted cities
-        int count = 0, n = visited;
-        while (n) {
-            count += n & 1;
-            n >>= 1;
-        }
-        if (count > cities.size()-5) { // threshold of minimum number of cities visited
-            std::this_thread::sleep_for(std::chrono::milliseconds(10)); // delay
+        // int count = 0, n = visited;
+        // while (n) {
+        //     count += n & 1;
+        //     n >>= 1;
+        // }
+        // if (count > cities.size()-9) { // threshold of minimum number of cities visited
+        if (true) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(4)); // delay
             std::ofstream fout("output.txt");
             trace_path(dist_table[visited][current], visited, current, fout, cities);
             fout.close();
