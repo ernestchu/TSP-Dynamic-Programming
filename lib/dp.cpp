@@ -43,7 +43,7 @@ Pair dp::tsp(int visited, int current, const std::vector<City>& cities, const bo
         // }
         // if (count > cities.size()-9) { // threshold of minimum number of cities visited
         if (true) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(4)); // delay
+            std::this_thread::sleep_for(std::chrono::milliseconds(7)); // delay
             std::ofstream fout("output.txt");
             trace_path(dist_table[visited][current], visited, current, fout, cities);
             fout.close();
