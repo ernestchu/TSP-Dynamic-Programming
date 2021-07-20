@@ -7,10 +7,12 @@ Pair dp::dp_search(const std::vector<City>& cities, const bool& plot) {
         dist_table[1<<i][i] = Pair(START, euclidean_distance(cities[START], cities[i]));
     return tsp((1 << n)-1, START, cities, plot);
 }
-void dp::trace_path(Pair p, std::ostream& o, const std::vector<City>& cities) {
-    //o << "\n==========\n";
-    int visited = (1 << cities.size())-1;
-    int current = START;
+void dp::trace_path(Pair p, int visited, int current, std::ostream& o, const std::vector<City>& cities) {
+    // print the cities not visited with double end lines(so gnuplot will not draw lines in between)
+    for (int i = 1, j = 0; j < cities.size(); i<<=1, j++) {
+        if (i & ~visited)
+            o << cities[j] << std::endl << std::endl;
+    }
     o << cities[current] << std::endl;
     do {
         o << cities[p.prev] << std::endl;
@@ -18,7 +20,6 @@ void dp::trace_path(Pair p, std::ostream& o, const std::vector<City>& cities) {
         current = p.prev;
         p = dist_table[visited][p.prev];
     } while(p.prev != -1);
-    //o << "==========\n\n";
 }
 Pair dp::tsp(int visited, int current, const std::vector<City>& cities, const bool& plot) {
     if (dist_table[visited][current].dist != -1)
@@ -31,6 +32,21 @@ Pair dp::tsp(int visited, int current, const std::vector<City>& cities, const bo
             float dist = tsp(visited-current_bit, i, cities, plot).dist+euclidean_distance(cities[i], cities[current]);
             if (dist < dist_table[visited][current].dist)
                 dist_table[visited][current] = Pair(i, dist);
+        }
+    }
+    if (plot) {
+        // count the number of visted cities
+        // int count = 0, n = visited;
+        // while (n) {
+        //     count += n & 1;
+        //     n >>= 1;
+        // }
+        // if (count > cities.size()-9) { // threshold of minimum number of cities visited
+        if (true) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(7)); // delay
+            std::ofstream fout("output.txt");
+            trace_path(dist_table[visited][current], visited, current, fout, cities);
+            fout.close();
         }
     }
     return dist_table[visited][current];

@@ -4,6 +4,7 @@
 #include <fstream>
 #include <ctime>
 #include <vector>
+#include <ctime>
 #include "lib/city.hpp"
 #include "lib/dp.hpp"
 void arg_handler(int argc, const char *argv[], std::string& algo, std::string& file);
@@ -13,20 +14,27 @@ int main(int argc, const char *argv[]){
     srand(1);
     std::string algo, file;
     std::vector<City> cities;
-    std::ofstream fout("output.txt");
 
     arg_handler(argc, argv, algo, file);
     read_file(file, cities);
 
     Pair final_node;
-    if (algo=="dp")
+    clock_t start=0, end=0;
+    if (algo=="dp"){
+        start = clock();
         final_node = dp::dp_search(cities, PLOT);
+        end = clock();
+    }
+    double cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+    std::cout << "\nExecution time: "<< cpu_time_used <<"s"<< std::endl;
 
     std::cout << "Shortest distance: " << final_node.dist << std::endl;
     std::cout << "\n==========\n";
-    dp::trace_path(final_node, std::cout, cities);
+    dp::trace_path(final_node, (1 << cities.size())-1, START, std::cout, cities);
     std::cout << "==========\n";
-    dp::trace_path(final_node, fout, cities);
+    std::ofstream fout("output.txt");
+    dp::trace_path(final_node, (1 << cities.size())-1, START, fout, cities);
+    fout.close();
     return 0;
 }
 

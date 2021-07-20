@@ -7,6 +7,7 @@ OBJ = city.o dp.o
 OBJDIR = ./obj/
 EXECOBJ = $(addprefix $(OBJDIR), $(EXEC).o)
 OBJS = $(addprefix $(OBJDIR), $(OBJ))
+OUTPUT = output.txt
 
 all: clean dep link
 
@@ -23,7 +24,15 @@ $(EXECOBJ): $(EXEC).cpp
 
 $(OBJDIR)%.o: %.cpp
 	$(CPP) $(F) -c $< -o $@
-plot:
-	gnuplot tsp11.p
+$(OUTPUT):
+	make
+	./search dp readfile.txt
+plot: $(OUTPUT)
+	gnuplot gnuplot/tsp11.p
+plot_animation:
+	make PLOT=1
+	touch $(OUTPUT)
+	gnuplot gnuplot/liveplot.gpi &
+	./search dp readfile.txt
 clean:
-	rm -rf obj $(EXEC)
+	rm -rf obj $(EXEC) tsp11-dp.eps output.txt
