@@ -1,7 +1,4 @@
-# Traveling Salesman Problem-11 cities
-
-## Dynamic Programming
-
+# Traveling Salesman Problem 11-cities Solved with Dynamic Programming
 ## Package
 gnuplot
 
@@ -28,3 +25,5 @@ Press 'q' to quit gnuplot
 Score: 167.807
 
 <img src=img/tsp11-dp.png width="500" height="400">
+
+![](img/tsp11-dp.png)
